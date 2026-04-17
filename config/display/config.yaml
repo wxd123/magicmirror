@@ -1,0 +1,109 @@
+# config/display/config.yaml
+# 硬件检测显示配置文件
+# 用于管理各种硬件的评级标准和显示选项
+
+# GPU 评级配置
+gpu_ratings:
+  nuclear:
+    - rtx 5090
+    - rtx 4090
+    - rx 7900 xtx
+    - rtx 4080 super
+    - rtx 4090 d
+  flagship:
+    - rtx 4080
+    - rx 7900 xt
+    - rtx 4070 ti super
+    - rx 6950 xt
+  high:
+    - rtx 4070
+    - rx 7800 xt
+    - rtx 4060 ti
+    - rx 7700 xt
+  rating:
+    nuclear: 核弹怪兽
+    flagship: 傲视群雄
+    high: 性能甜点
+    other: 主打够用
+
+# 显存评级配置
+vram_ratings:
+  - min: 24
+    rating: "【显存富翁】"
+  - min: 16
+    rating: "【小资生活】"
+  - min: 12
+    rating: "【温饱有余】"
+  - min: 8
+    rating: "【勉强够用】"
+  - min: 4
+    rating: "【显存乞丐】"
+  - min: 0
+    rating: "【极限生存】"
+
+# 驱动评级配置
+driver_ratings:
+  - min_version: 570
+    rating: "【紧跟版本】"
+  - min_version: 550
+    rating: "【版本适中】"
+  - min_version: 535
+    rating: "【版本较旧】"
+  - min_version: 0
+    rating: "【远古版本】"
+
+# 操作系统评级配置
+system_ratings:
+  ubuntu:
+    keywords: [ubuntu, debian]
+    rating: "【稳得一批】"
+  centos:
+    keywords: [centos, rhel]
+    rating: "【企业级稳】"
+  arch:
+    keywords: [arch]
+    rating: "【折腾狂魔】"
+  windows11:
+    keywords: [windows 11, win11]
+    rating: "【最新潮流】"
+  windows10:
+    keywords: [windows 10, win10]
+    rating: "【经典永存】"
+  windows_old:
+    keywords: [windows 7, windows 8]
+    rating: "【怀旧情怀】"
+  macos:
+    keywords: [mac, darwin, macos]
+    rating: "【果味十足】"
+  default:
+    rating: "【小众精英】"
+
+# CPU 评级配置
+cpu_ratings:
+  top:
+    keywords: [ryzen 9, i9, ultra 9, threadripper]
+    rating: "【性能怪兽】"
+  high:
+    keywords: [ryzen 7, i7, ultra 7]
+    rating: "【性能标杆】"
+  medium:
+    keywords: [ryzen 5, i5, ultra 5]
+    rating: "【主流利器】"
+  entry:
+    keywords: [ryzen 3, i3]
+    rating: "【入门首选】"
+  default:
+    rating: "【够用就好】"
+
+# 内存评级配置
+memory_ratings:
+  - min: 64
+    rating: "【内存自由】"
+  - min: 32
+    rating: "【大胃王】"
+  - min: 16
+    rating: "【小康生活】"
+  - min: 8
+    rating: "【温饱水平】"
+  - min: 0
+    rating: "【急需升级】"

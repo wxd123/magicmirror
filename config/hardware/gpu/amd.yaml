@@ -1,0 +1,48 @@
+# AMD GPU 规格数据库
+vendor: AMD
+
+# 企业级
+MI300X:
+  architecture: CDNA3
+  vram_gb: 192
+  vram_type: HBM3
+  bandwidth_gb_s: 5300
+  tflops_fp16: 1300
+  tflops_fp8: 2600
+  tflops_int4: 2600
+  tdp_w: 750
+  nvlink_supported: true
+
+MI250X:
+  architecture: CDNA2
+  vram_gb: 128
+  vram_type: HBM2e
+  bandwidth_gb_s: 3200
+  tflops_fp16: 383
+  tflops_fp8: null
+  tflops_int4: 766
+  tdp_w: 560
+  nvlink_supported: true
+
+# 消费级
+RX_7900_XTX:
+  architecture: RDNA3
+  vram_gb: 24
+  vram_type: GDDR6
+  bandwidth_gb_s: 960
+  tflops_fp16: 123
+  tflops_fp8: 246
+  tflops_int4: 246
+  tdp_w: 355
+  nvlink_supported: false
+
+RX_7900_XT:
+  architecture: RDNA3
+  vram_gb: 20
+  vram_type: GDDR6
+  bandwidth_gb_s: 800
+  tflops_fp16: 103
+  tflops_fp8: 206
+  tflops_int4: 206
+  tdp_w: 300
+  nvlink_supported: false
