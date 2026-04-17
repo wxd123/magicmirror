@@ -1,0 +1,1 @@
+# magicm/command/detecter.py

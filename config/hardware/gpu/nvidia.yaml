@@ -1,0 +1,169 @@
+# NVIDIA GPU 规格数据库
+vendor: NVIDIA
+
+# 企业级
+H100:
+  architecture: Hopper
+  vram_gb: 80
+  vram_type: HBM3
+  bandwidth_gb_s: 3350
+  tflops_fp16: 1979
+  tflops_fp8: 3958
+  tflops_int4: 3958
+  tdp_w: 700
+  nvlink_supported: true
+
+H200:
+  architecture: Hopper
+  vram_gb: 141
+  vram_type: HBM3e
+  bandwidth_gb_s: 4900
+  tflops_fp16: 1979
+  tflops_fp8: 3958
+  tflops_int4: 3958
+  tdp_w: 700
+  nvlink_supported: true
+
+A100:
+  architecture: Ampere
+  vram_gb: 80
+  vram_type: HBM2e
+  bandwidth_gb_s: 2039
+  tflops_fp16: 312
+  tflops_fp8: null
+  tflops_int4: 624
+  tdp_w: 400
+  nvlink_supported: true
+
+A800:
+  architecture: Ampere
+  vram_gb: 80
+  vram_type: HBM2e
+  bandwidth_gb_s: 2039
+  tflops_fp16: 312
+  tflops_fp8: null
+  tflops_int4: 624
+  tdp_w: 400
+  nvlink_supported: true
+
+L40S:
+  architecture: Ada
+  vram_gb: 48
+  vram_type: GDDR6
+  bandwidth_gb_s: 864
+  tflops_fp16: 362
+  tflops_fp8: 723
+  tflops_int4: 723
+  tdp_w: 300
+  nvlink_supported: false
+
+L20:
+  architecture: Ada
+  vram_gb: 48
+  vram_type: GDDR6
+  bandwidth_gb_s: 864
+  tflops_fp16: 240
+  tflops_fp8: 480
+  tflops_int4: 480
+  tdp_w: 275
+  nvlink_supported: false
+
+L4:
+  architecture: Ada
+  vram_gb: 24
+  vram_type: GDDR6
+  bandwidth_gb_s: 300
+  tflops_fp16: 121
+  tflops_fp8: 242
+  tflops_int4: 242
+  tdp_w: 72
+  nvlink_supported: false
+
+T4:
+  architecture: Turing
+  vram_gb: 16
+  vram_type: GDDR6
+  bandwidth_gb_s: 300
+  tflops_fp16: 65
+  tflops_fp8: null
+  tflops_int4: 130
+  tdp_w: 70
+  nvlink_supported: false
+
+V100:
+  architecture: Volta
+  vram_gb: 32
+  vram_type: HBM2
+  bandwidth_gb_s: 900
+  tflops_fp16: 125
+  tflops_fp8: null
+  tflops_int4: null
+  tdp_w: 300
+  nvlink_supported: true
+
+# 消费级
+RTX_4090:
+  architecture: Ada
+  vram_gb: 24
+  vram_type: GDDR6X
+  bandwidth_gb_s: 1008
+  tflops_fp16: 330
+  tflops_fp8: 660
+  tflops_int4: 660
+  tdp_w: 450
+  nvlink_supported: false
+
+RTX_4080:
+  architecture: Ada
+  vram_gb: 16
+  vram_type: GDDR6X
+  bandwidth_gb_s: 716
+  tflops_fp16: 249
+  tflops_fp8: 498
+  tflops_int4: 498
+  tdp_w: 320
+  nvlink_supported: false
+
+RTX_4070:
+  architecture: Ada
+  vram_gb: 12
+  vram_type: GDDR6X
+  bandwidth_gb_s: 504
+  tflops_fp16: 160
+  tflops_fp8: 320
+  tflops_int4: 320
+  tdp_w: 200
+  nvlink_supported: false
+
+RTX_3090:
+  architecture: Ampere
+  vram_gb: 24
+  vram_type: GDDR6X
+  bandwidth_gb_s: 936
+  tflops_fp16: 142
+  tflops_fp8: null
+  tflops_int4: 284
+  tdp_w: 350
+  nvlink_supported: true
+
+RTX_3080:
+  architecture: Ampere
+  vram_gb: 12
+  vram_type: GDDR6X
+  bandwidth_gb_s: 760
+  tflops_fp16: 89
+  tflops_fp8: null
+  tflops_int4: 178
+  tdp_w: 320
+  nvlink_supported: false
+
+RTX_3060:
+  architecture: Ampere
+  vram_gb: 12
+  vram_type: GDDR6
+  bandwidth_gb_s: 360
+  tflops_fp16: 40
+  tflops_fp8: null
+  tflops_int4: 80
+  tdp_w: 170
+  nvlink_supported: false

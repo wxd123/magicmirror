@@ -1,0 +1,15 @@
+# 自动生成__init__.py
+uv pip install pyinitgen
+
+# 查看自动生成文件
+pyinitgen --base-dir ./src/magicm --dry-run
+
+# 生成
+pyinitgen --base-dir ./src/magicm
+
+
+# 生成api接口文档
+python -m python_docstring_markdown ./src/magicm ./docs/api.md
+
+# 安装测试工具
+uv pip install pytest pytest-cov
