@@ -1,10 +1,10 @@
 from typing import List, Optional
 from .base import BaseGPUDetector, DetectionResult, GPUInfo
-from .nvidia import NVIDIADetector
-from .amd import AMDDetector
-from .intel import IntelDetector
-from .huawei import HuaweiDetector
-from .utils import extract_gpu_name, run_cmd_safe, get_gpu_memory, get_gpu_specs
+from ..vendor.nvidia import NVIDIADetector
+from ..vendor.amd import AMDDetector
+from ..vendor.intel import IntelDetector
+from ..vendor.huawei import HuaweiDetector
+from ..vendor.utils import extract_gpu_name, run_cmd_safe, get_gpu_memory, get_gpu_specs
 
 
 class GPUDetectorFactory:

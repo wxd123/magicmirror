@@ -13,3 +13,6 @@ python -m python_docstring_markdown ./src/magicm ./docs/api.md
 
 # 安装测试工具
 uv pip install pytest pytest-cov
+
+# git 代理
+git config --global http.https://github.com.proxy http://127.0.0.1:7897

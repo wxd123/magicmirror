@@ -1,5 +1,5 @@
 from typing import Optional
-from .base import BaseGPUDetector, GPUVendor, GPUInfo, GPUType
+from ..core.base import BaseGPUDetector, GPUVendor, GPUInfo, GPUType
 from .utils import run_cmd_safe
 
 

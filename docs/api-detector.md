@@ -12,6 +12,9 @@
 - 🅼 [detector\.hardware\.cpu\.win\_detecter](#detector-hardware-cpu-win_detecter)
 - 🅼 [detector\.hardware\.gpu](#detector-hardware-gpu)
 - 🅼 [detector\.hardware\.gpu\.amd](#detector-hardware-gpu-amd)
+- 🅼 [detector\.hardware\.gpu\.core](#detector-hardware-gpu-core)
+- 🅼 [detector\.hardware\.gpu\.core\.base](#detector-hardware-gpu-core-base)
+- 🅼 [detector\.hardware\.gpu\.core\.factory](#detector-hardware-gpu-core-factory)
 - 🅼 [detector\.hardware\.gpu\.gpu\_detecter](#detector-hardware-gpu-gpu_detecter)
 - 🅼 [detector\.hardware\.gpu\.gpu\_typer](#detector-hardware-gpu-gpu_typer)
 - 🅼 [detector\.hardware\.gpu\.nvidia\_detecter](#detector-hardware-gpu-nvidia_detecter)
@@ -21,8 +24,6 @@
 - 🅼 [detector\.hardware\.gpu\.system\.win\_detecter](#detector-hardware-gpu-system-win_detecter)
 - 🅼 [detector\.hardware\.gpu\.vendor](#detector-hardware-gpu-vendor)
 - 🅼 [detector\.hardware\.gpu\.vendor\.amd](#detector-hardware-gpu-vendor-amd)
-- 🅼 [detector\.hardware\.gpu\.vendor\.base](#detector-hardware-gpu-vendor-base)
-- 🅼 [detector\.hardware\.gpu\.vendor\.factory](#detector-hardware-gpu-vendor-factory)
 - 🅼 [detector\.hardware\.gpu\.vendor\.huawei](#detector-hardware-gpu-vendor-huawei)
 - 🅼 [detector\.hardware\.gpu\.vendor\.intel](#detector-hardware-gpu-vendor-intel)
 - 🅼 [detector\.hardware\.gpu\.vendor\.nvidia](#detector-hardware-gpu-vendor-nvidia)
@@ -184,6 +185,170 @@ Windows系统CPU检测函数。
 ## 🅼 detector\.hardware\.gpu
 <a name="detector-hardware-gpu-amd"></a>
 ## 🅼 detector\.hardware\.gpu\.amd
+<a name="detector-hardware-gpu-core"></a>
+## 🅼 detector\.hardware\.gpu\.core
+<a name="detector-hardware-gpu-core-base"></a>
+## 🅼 detector\.hardware\.gpu\.core\.base
+
+- **Classes:**
+  - 🅲 [GPUVendor](#detector-hardware-gpu-core-base-GPUVendor)
+  - 🅲 [GPUType](#detector-hardware-gpu-core-base-GPUType)
+  - 🅲 [GPUInfo](#detector-hardware-gpu-core-base-GPUInfo)
+  - 🅲 [DetectionResult](#detector-hardware-gpu-core-base-DetectionResult)
+  - 🅲 [BaseGPUDetector](#detector-hardware-gpu-core-base-BaseGPUDetector)
+
+### Classes
+
+<a name="detector-hardware-gpu-core-base-GPUVendor"></a>
+### 🅲 detector\.hardware\.gpu\.core\.base\.GPUVendor
+
+```python
+class GPUVendor(Enum):
+```
+<a name="detector-hardware-gpu-core-base-GPUType"></a>
+### 🅲 detector\.hardware\.gpu\.core\.base\.GPUType
+
+```python
+class GPUType(Enum):
+```
+<a name="detector-hardware-gpu-core-base-GPUInfo"></a>
+### 🅲 detector\.hardware\.gpu\.core\.base\.GPUInfo
+
+```python
+class GPUInfo:
+```
+
+GPU信息数据类
+
+**Functions:**
+
+<a name="detector-hardware-gpu-core-base-GPUInfo-to_dict"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.GPUInfo\.to\_dict
+
+```python
+def to_dict(self) -> Dict[str, Any]:
+```
+
+转换为字典
+<a name="detector-hardware-gpu-core-base-DetectionResult"></a>
+### 🅲 detector\.hardware\.gpu\.core\.base\.DetectionResult
+
+```python
+class DetectionResult:
+```
+
+检测结果数据类
+
+**Functions:**
+
+<a name="detector-hardware-gpu-core-base-DetectionResult-main_gpu"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.DetectionResult\.main\_gpu
+
+```python
+def main_gpu(self) -> Optional[GPUInfo]:
+```
+
+获取主GPU（优先离散，其次集成）
+<a name="detector-hardware-gpu-core-base-DetectionResult-to_dict"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.DetectionResult\.to\_dict
+
+```python
+def to_dict(self) -> Dict[str, Any]:
+```
+
+转换为字典（兼容原有格式）
+<a name="detector-hardware-gpu-core-base-BaseGPUDetector"></a>
+### 🅲 detector\.hardware\.gpu\.core\.base\.BaseGPUDetector
+
+```python
+class BaseGPUDetector(ABC):
+```
+
+GPU检测器基类
+
+**Functions:**
+
+<a name="detector-hardware-gpu-core-base-BaseGPUDetector-vendor"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.BaseGPUDetector\.vendor
+
+```python
+def vendor(self) -> GPUVendor:
+```
+
+返回检测器支持的厂商
+<a name="detector-hardware-gpu-core-base-BaseGPUDetector-detect_from_lspci"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.BaseGPUDetector\.detect\_from\_lspci
+
+```python
+def detect_from_lspci(self, lspci_line: str, gpu_name: str) -> Optional[GPUInfo]:
+```
+
+从lspci行检测GPU信息
+<a name="detector-hardware-gpu-core-base-BaseGPUDetector-detect_driver_version"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.BaseGPUDetector\.detect\_driver\_version
+
+```python
+def detect_driver_version(self, gpu_info: GPUInfo) -> Optional[str]:
+```
+
+检测驱动版本
+<a name="detector-hardware-gpu-core-base-BaseGPUDetector-enhance_gpu_info"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.BaseGPUDetector\.enhance\_gpu\_info
+
+```python
+def enhance_gpu_info(self, gpu_info: GPUInfo) -> GPUInfo:
+```
+
+增强GPU信息（填充额外字段）
+<a name="detector-hardware-gpu-core-base-BaseGPUDetector-supports_vendor"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.base\.BaseGPUDetector\.supports\_vendor
+
+```python
+def supports_vendor(self, line: str, name: str) -> bool:
+```
+
+判断是否支持该厂商的GPU
+<a name="detector-hardware-gpu-core-factory"></a>
+## 🅼 detector\.hardware\.gpu\.core\.factory
+
+- **Classes:**
+  - 🅲 [GPUDetectorFactory](#detector-hardware-gpu-core-factory-GPUDetectorFactory)
+
+### Classes
+
+<a name="detector-hardware-gpu-core-factory-GPUDetectorFactory"></a>
+### 🅲 detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory
+
+```python
+class GPUDetectorFactory:
+```
+
+GPU检测器工厂
+
+**Functions:**
+
+<a name="detector-hardware-gpu-core-factory-GPUDetectorFactory-__init__"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory\.\_\_init\_\_
+
+```python
+def __init__(self):
+```
+<a name="detector-hardware-gpu-core-factory-GPUDetectorFactory-get_detector"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory\.get\_detector
+
+```python
+def get_detector(self, lspci_line: str, gpu_name: str) -> Optional[BaseGPUDetector]:
+```
+
+根据lspci行获取合适的检测器
+<a name="detector-hardware-gpu-core-factory-GPUDetectorFactory-detect_all"></a>
+#### 🅵 detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory\.detect\_all
+
+```python
+def detect_all(self) -> DetectionResult:
+```
+
+检测所有GPU
 <a name="detector-hardware-gpu-gpu_detecter"></a>
 ## 🅼 detector\.hardware\.gpu\.gpu\_detecter
 
@@ -368,168 +533,6 @@ def enhance_gpu_info(self, gpu_info: GPUInfo) -> GPUInfo:
 ```
 
 增强AMD GPU信息
-<a name="detector-hardware-gpu-vendor-base"></a>
-## 🅼 detector\.hardware\.gpu\.vendor\.base
-
-- **Classes:**
-  - 🅲 [GPUVendor](#detector-hardware-gpu-vendor-base-GPUVendor)
-  - 🅲 [GPUType](#detector-hardware-gpu-vendor-base-GPUType)
-  - 🅲 [GPUInfo](#detector-hardware-gpu-vendor-base-GPUInfo)
-  - 🅲 [DetectionResult](#detector-hardware-gpu-vendor-base-DetectionResult)
-  - 🅲 [BaseGPUDetector](#detector-hardware-gpu-vendor-base-BaseGPUDetector)
-
-### Classes
-
-<a name="detector-hardware-gpu-vendor-base-GPUVendor"></a>
-### 🅲 detector\.hardware\.gpu\.vendor\.base\.GPUVendor
-
-```python
-class GPUVendor(Enum):
-```
-<a name="detector-hardware-gpu-vendor-base-GPUType"></a>
-### 🅲 detector\.hardware\.gpu\.vendor\.base\.GPUType
-
-```python
-class GPUType(Enum):
-```
-<a name="detector-hardware-gpu-vendor-base-GPUInfo"></a>
-### 🅲 detector\.hardware\.gpu\.vendor\.base\.GPUInfo
-
-```python
-class GPUInfo:
-```
-
-GPU信息数据类
-
-**Functions:**
-
-<a name="detector-hardware-gpu-vendor-base-GPUInfo-to_dict"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.GPUInfo\.to\_dict
-
-```python
-def to_dict(self) -> Dict[str, Any]:
-```
-
-转换为字典
-<a name="detector-hardware-gpu-vendor-base-DetectionResult"></a>
-### 🅲 detector\.hardware\.gpu\.vendor\.base\.DetectionResult
-
-```python
-class DetectionResult:
-```
-
-检测结果数据类
-
-**Functions:**
-
-<a name="detector-hardware-gpu-vendor-base-DetectionResult-main_gpu"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.DetectionResult\.main\_gpu
-
-```python
-def main_gpu(self) -> Optional[GPUInfo]:
-```
-
-获取主GPU（优先离散，其次集成）
-<a name="detector-hardware-gpu-vendor-base-DetectionResult-to_dict"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.DetectionResult\.to\_dict
-
-```python
-def to_dict(self) -> Dict[str, Any]:
-```
-
-转换为字典（兼容原有格式）
-<a name="detector-hardware-gpu-vendor-base-BaseGPUDetector"></a>
-### 🅲 detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector
-
-```python
-class BaseGPUDetector(ABC):
-```
-
-GPU检测器基类
-
-**Functions:**
-
-<a name="detector-hardware-gpu-vendor-base-BaseGPUDetector-vendor"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.vendor
-
-```python
-def vendor(self) -> GPUVendor:
-```
-
-返回检测器支持的厂商
-<a name="detector-hardware-gpu-vendor-base-BaseGPUDetector-detect_from_lspci"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.detect\_from\_lspci
-
-```python
-def detect_from_lspci(self, lspci_line: str, gpu_name: str) -> Optional[GPUInfo]:
-```
-
-从lspci行检测GPU信息
-<a name="detector-hardware-gpu-vendor-base-BaseGPUDetector-detect_driver_version"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.detect\_driver\_version
-
-```python
-def detect_driver_version(self, gpu_info: GPUInfo) -> Optional[str]:
-```
-
-检测驱动版本
-<a name="detector-hardware-gpu-vendor-base-BaseGPUDetector-enhance_gpu_info"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.enhance\_gpu\_info
-
-```python
-def enhance_gpu_info(self, gpu_info: GPUInfo) -> GPUInfo:
-```
-
-增强GPU信息（填充额外字段）
-<a name="detector-hardware-gpu-vendor-base-BaseGPUDetector-supports_vendor"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.supports\_vendor
-
-```python
-def supports_vendor(self, line: str, name: str) -> bool:
-```
-
-判断是否支持该厂商的GPU
-<a name="detector-hardware-gpu-vendor-factory"></a>
-## 🅼 detector\.hardware\.gpu\.vendor\.factory
-
-- **Classes:**
-  - 🅲 [GPUDetectorFactory](#detector-hardware-gpu-vendor-factory-GPUDetectorFactory)
-
-### Classes
-
-<a name="detector-hardware-gpu-vendor-factory-GPUDetectorFactory"></a>
-### 🅲 detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory
-
-```python
-class GPUDetectorFactory:
-```
-
-GPU检测器工厂
-
-**Functions:**
-
-<a name="detector-hardware-gpu-vendor-factory-GPUDetectorFactory-__init__"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory\.\_\_init\_\_
-
-```python
-def __init__(self):
-```
-<a name="detector-hardware-gpu-vendor-factory-GPUDetectorFactory-get_detector"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory\.get\_detector
-
-```python
-def get_detector(self, lspci_line: str, gpu_name: str) -> Optional[BaseGPUDetector]:
-```
-
-根据lspci行获取合适的检测器
-<a name="detector-hardware-gpu-vendor-factory-GPUDetectorFactory-detect_all"></a>
-#### 🅵 detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory\.detect\_all
-
-```python
-def detect_all(self) -> DetectionResult:
-```
-
-检测所有GPU
 <a name="detector-hardware-gpu-vendor-huawei"></a>
 ## 🅼 detector\.hardware\.gpu\.vendor\.huawei
 

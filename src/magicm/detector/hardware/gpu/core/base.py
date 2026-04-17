@@ -1,18 +1,31 @@
+# detector/hardware/gpu/core/base.py
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional, List
+from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 from enum import Enum
 
 
+class SystemType(Enum):
+    """系统类型 - 扩展少"""
+    LINUX = "linux"
+    WINDOWS = "windows"
+    MACOS = "macos"
+    UNKNOWN = "unknown"
+
+
 class GPUVendor(Enum):
+    """GPU厂商 - 扩展多"""
     NVIDIA = "nvidia"
     AMD = "amd"
     INTEL = "intel"
     HUAWEI = "huawei"
+    QUALCOMM = "qualcomm"
+    APPLE = "apple"
     UNKNOWN = "unknown"
 
 
 class GPUType(Enum):
+    """GPU类型"""
     DISCRETE = "discrete"
     INTEGRATED = "integrated"
     VIRTUAL = "virtual"
@@ -21,10 +34,10 @@ class GPUType(Enum):
 
 @dataclass
 class GPUInfo:
-    """GPU信息数据类"""
+    """GPU信息数据类 - 兼容原有API"""
     name: str
-    vendor: GPUVendor
-    gpu_type: GPUType
+    vendor: Optional[GPUVendor] = None
+    gpu_type: Optional[GPUType] = None
     memory_gb: Optional[int] = None
     driver_version: Optional[str] = None
     cuda_version: Optional[str] = None
@@ -33,9 +46,10 @@ class GPUInfo:
     nvlink: Optional[Dict[str, Any]] = None
     specs: Optional[Dict[str, Any]] = None
     raw_line: Optional[str] = None
+    system: Optional[SystemType] = None
     
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典"""
+        """转换为字典 - 兼容原有格式"""
         result = {
             'name': self.name,
             'vendor': self.vendor.value if self.vendor else None,
@@ -47,18 +61,25 @@ class GPUInfo:
             'ascend_version': self.ascend_version,
             'nvlink': self.nvlink,
             'specs': self.specs,
-            'raw': self.raw_line
+            'raw': self.raw_line,
         }
         return {k: v for k, v in result.items() if v is not None}
 
 
 @dataclass
 class DetectionResult:
-    """检测结果数据类"""
+    """检测结果数据类 - 兼容原有API"""
     gpu_present: bool = False
     discrete_gpu: Optional[GPUInfo] = None
     integrated_gpu: Optional[GPUInfo] = None
     all_gpus: List[GPUInfo] = field(default_factory=list)
+    gpu_name: Optional[str] = None
+    driver_version: Optional[str] = None
+    cuda_version: Optional[str] = None
+    rocm_version: Optional[str] = None
+    ascend_version: Optional[str] = None
+    nvlink: Optional[Dict[str, Any]] = None
+    specs: Optional[Dict[str, Any]] = None
     
     @property
     def main_gpu(self) -> Optional[GPUInfo]:
@@ -66,7 +87,7 @@ class DetectionResult:
         return self.discrete_gpu or self.integrated_gpu
     
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典（兼容原有格式）"""
+        """转换为字典 - 兼容原有格式"""
         main = self.main_gpu
         return {
             'gpu_present': self.gpu_present,
@@ -83,32 +104,40 @@ class DetectionResult:
         }
 
 
-class BaseGPUDetector(ABC):
-    """GPU检测器基类"""
+# 命令接口
+class GPUDetectionCommand(ABC):
+    """GPU检测命令接口"""
     
-    @property
     @abstractmethod
-    def vendor(self) -> GPUVendor:
-        """返回检测器支持的厂商"""
+    def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+        """执行检测命令"""
         pass
     
     @abstractmethod
-    def detect_from_lspci(self, lspci_line: str, gpu_name: str) -> Optional[GPUInfo]:
-        """从lspci行检测GPU信息"""
+    def get_vendor(self) -> GPUVendor:
+        """返回厂商类型"""
+        pass
+    
+    def get_priority(self) -> int:
+        """优先级（数值越小越先执行）"""
+        return 100
+
+
+# 平台适配器接口
+class PlatformAdapter(ABC):
+    """平台适配器接口"""
+    
+    @abstractmethod
+    def get_system_type(self) -> SystemType:
+        """获取系统类型"""
         pass
     
     @abstractmethod
-    def detect_driver_version(self, gpu_info: GPUInfo) -> Optional[str]:
-        """检测驱动版本"""
+    def run_command(self, cmd: str) -> tuple:
+        """执行命令"""
         pass
     
-    def enhance_gpu_info(self, gpu_info: GPUInfo) -> GPUInfo:
-        """增强GPU信息（填充额外字段）"""
-        gpu_info.driver_version = self.detect_driver_version(gpu_info)
-        return gpu_info
-    
-    def supports_vendor(self, line: str, name: str) -> bool:
-        """判断是否支持该厂商的GPU"""
-        line_lower = line.lower()
-        name_lower = name.lower()
-        return self.vendor.value in line_lower or self.vendor.value in name_lower
+    @abstractmethod
+    def get_gpu_list(self) -> List[Dict[str, Any]]:
+        """获取GPU原始列表"""
+        pass

@@ -5,7 +5,7 @@ from functools import lru_cache
 
 # 导入原有的规格加载器
 from magicm.utils.util import run_cmd as _run_cmd
-from .specs_loader import GPUSpecsLoader
+from magicm.management.config.configManager import ConfigManager
 
 
 _specs_loader = None
@@ -14,7 +14,7 @@ _specs_loader = None
 def _get_specs_loader():
     global _specs_loader
     if _specs_loader is None:
-        _specs_loader = GPUSpecsLoader()
+        _specs_loader = ConfigManager()
     return _specs_loader
 
 
@@ -95,4 +95,5 @@ def get_gpu_memory(gpu_name: str, gpu_raw_line: Optional[str] = None) -> Optiona
 def get_gpu_specs(gpu_name: str) -> Optional[Dict[str, Any]]:
     """根据GPU名称获取完整规格"""
     loader = _get_specs_loader()
-    return loader.get_specs(gpu_name)
+    info = loader.load_all_from_directory('hardware','gpu')
+    return info

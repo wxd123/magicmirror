@@ -261,7 +261,7 @@ class ConfigLoader:
             >>> configs = loader.load_all_from_directory('display')
             >>> print(configs.keys())  # ['config', 'settings']
         """
-        dir_path = self.get_config_path(paths)
+        dir_path = self.get_config_path(*paths)
         
         if not dir_path.exists():
             raise FileNotFoundError(f"目录不存在: {dir_path}")
