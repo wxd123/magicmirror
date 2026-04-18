@@ -249,7 +249,7 @@ class ConfigLoader:
     def load_all_from_directory(self, *paths: str) -> Dict[str, Dict[str, Any]]:
         """
         加载指定目录下的所有 YAML 配置文件        
-        从指定目录加载所有 .yaml 和 .yml 文件，返回以文件名（不含扩展名）为键的配置字典。        
+        从指定目录加载所有 .yaml 和 .yml 文件，返回以文件名（不含扩展名）为键的配置字典。
         Args:
             *paths: config 目录下的路径(相对于config)        
         Returns:
@@ -270,10 +270,8 @@ class ConfigLoader:
         # 同时匹配 .yaml 和 .yml 扩展名
         for file_path in list(dir_path.glob('*.yaml')) + list(dir_path.glob('*.yml')):
             with open(file_path, 'r', encoding='utf-8') as f:
-                configs[file_path.stem] = yaml.safe_load(f) or {}
-        
-        return configs
-    
+                configs[file_path.stem] = yaml.safe_load(f) or {}        
+        return configs    
 
     def load_merged(self) -> Dict[str, Any]:
         """
