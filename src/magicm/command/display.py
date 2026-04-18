@@ -1,222 +1,182 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# magicm/command/display.py
 """
-硬件检测结果显示模块
+硬件检测结果显示模块（主入口）
+
+这是对外的主要接口，保持向后兼容
 """
 
 from typing import Dict, Any, Optional
-from pathlib import Path
 from magicm.management.config.configManager import ConfigManager
+from .disp.hardware_rating import HardwareRating
+from .disp.formatter import HardwareFormatter
 
 
 class HardwareDisplay:
-    """硬件检测结果展示类"""   
+    """硬件检测结果展示类（门面模式）"""
     
     def __init__(self, config: Optional[Dict[str, Any]] = None, config_path: Optional[str] = None):
-        self.width = 50
-        self.config_manager = ConfigManager()  # 创建实例
+        """
+        初始化硬件显示器
+        
+        Args:
+            config: 配置字典（可选）
+            config_path: 配置文件路径（可选）
+        """
+        # 加载配置（保持原逻辑）
+        self.config_manager = ConfigManager()
         
         if config is not None:
             self.config = config
+        elif config_path is not None:
+            self.config = self.config_manager.load('display', config_path)
         else:
-            self.config = self.config_manager.load('display', 'config.yaml')    
+            self.config = self.config_manager.load('display', 'config.yaml')
+        
+        # 初始化评级计算器和格式化器
+        self.rating = HardwareRating(self.config)
+        self.formatter = HardwareFormatter(self.rating)
+        
+        # 保持向后兼容的属性
+        self.width = 50
     
+    # ==================== 主要显示方法 ====================
     
-    # ==================== 评级方法 ====================
+    def display_all(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any],
+                   gpu_info: Dict[str, Any], memory_info: Dict[str, Any]):
+        """
+        显示所有硬件信息（控制台输出）
+        
+        Args:
+            system_info: 系统信息
+            cpu_info: CPU信息
+            gpu_info: GPU信息
+            memory_info: 内存信息
+        """
+        self.formatter.display_all(system_info, cpu_info, gpu_info, memory_info)
+    
+    def format_text(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any],
+                   gpu_info: Dict[str, Any], memory_info: Dict[str, Any],
+                   width: int = 100) -> str:
+        """
+        返回格式化的文本
+        
+        Args:
+            system_info: 系统信息
+            cpu_info: CPU信息
+            gpu_info: GPU信息
+            memory_info: 内存信息
+            width: 文本宽度
+            
+        Returns:
+            格式化的文本字符串
+        """
+        return self.formatter.format_as_text(system_info, cpu_info, gpu_info, memory_info, width)
+    
+    # ==================== 向后兼容的评级方法 ====================
+    # 这些方法保持向后兼容，实际调用 rating 对象的方法
     
     def get_gpu_rating(self, gpu_name: str) -> str:
-        gpu_lower = gpu_name.lower()
-        gpu_ratings = self.config['gpu_ratings']
-        gpu_rating_words = gpu_ratings['rating']
-        ret = ''
-        for key in ['nuclear', 'flagship', 'high']:
-            if any(kw in gpu_lower for kw in gpu_ratings[key]):
-                ret = gpu_rating_words[key]
-            else:
-                ret = gpu_rating_words['other']
-        return '【' + ret +'】'
+        """获取GPU评级（向后兼容）"""
+        return self.rating.get_gpu_rating(gpu_name)
     
     def get_vram_rating(self, vram_gb: int) -> str:
-        ratings = self.config['vram_ratings']
-        for rating_config in ratings:
-            if vram_gb >= rating_config['min']:
-                return rating_config['rating']
-        return ratings[-1]['rating']
+        """获取显存评级（向后兼容）"""
+        return self.rating.get_vram_rating(vram_gb)
     
     def get_driver_rating(self, driver_version: str) -> str:
-        if not driver_version or driver_version == "未知":
-            return "【未检测】"
-        
-        import re
-        match = re.search(r'(\d+)', str(driver_version))
-        if not match:
-            return "【版本未知】"
-        
-        major_version = int(match.group(1))
-        ratings = self.config['driver_ratings']
-        for rating_config in ratings:
-            if major_version >= rating_config['min_version']:
-                return rating_config['rating']
-        return ratings[-1]['rating']
+        """获取驱动评级（向后兼容）"""
+        return self.rating.get_driver_rating(driver_version)
     
     def get_system_rating(self, os_name: str) -> str:
-        os_lower = os_name.lower()
-        system_ratings = self.config['system_ratings']
-        
-        for sys_type, sys_config in system_ratings.items():
-            if sys_type == 'default':
-                continue
-            for keyword in sys_config['keywords']:
-                if keyword in os_lower:
-                    return sys_config['rating']
-        
-        return system_ratings['default']['rating']
+        """获取系统评级（向后兼容）"""
+        return self.rating.get_system_rating(os_name)
     
     def get_cpu_rating(self, cpu_model: str) -> str:
-        cpu_lower = cpu_model.lower()
-        cpu_ratings = self.config['cpu_ratings']
-        
-        for level in ['top', 'high', 'medium', 'entry']:
-            for keyword in cpu_ratings[level]['keywords']:
-                if keyword in cpu_lower:
-                    return cpu_ratings[level]['rating']
-        
-        return cpu_ratings['default']['rating']
+        """获取CPU评级（向后兼容）"""
+        return self.rating.get_cpu_rating(cpu_model)
     
     def get_memory_rating(self, memory_gb: int) -> str:
-        ratings = self.config['memory_ratings']
-        for rating_config in ratings:
-            if memory_gb >= rating_config['min']:
-                return rating_config['rating']
-        return ratings[-1]['rating']
+        """获取内存评级（向后兼容）"""
+        return self.rating.get_memory_rating(memory_gb)
     
-    # ==================== 对齐显示方法 ====================
-    
-    def _get_display_width(self, text: str) -> int:
-        """计算字符串显示宽度（中文占2，英文占1）"""
-        width = 0
-        for ch in text:
-            if '\u4e00' <= ch <= '\u9fff' or ch in '【】（）':
-                width += 2
-            else:
-                width += 1
-        return width
-    
-    def _pad_to_width(self, text: str, target_width: int) -> str:
-        """填充空格到指定显示宽度"""
-        current_width = self._get_display_width(text)
-        if current_width >= target_width:
-            return text
-        return text + ' ' * (target_width - current_width)
-    
-    def _show_info(self, label: str, value: str, rating: str, indent: int = 4):
-        """通用显示方法"""
-        spaces = " " * indent
-        col1 = f"{spaces}{label}：{value}"
-        col1_padded = self._pad_to_width(col1, 35)
-        print(f"{col1_padded}{rating}")
+    # ==================== 向后兼容的显示方法 ====================
     
     def show_banner(self):
-        """显示欢迎横幅"""
-        print("\n" + "=" * 58)
-        print("        你的硬件检测结果")
-        print("=" * 58)
-        print()
+        """显示欢迎横幅（向后兼容）"""
+        self.formatter.show_banner()
     
     def show_footer(self):
-        print("\n" + "=" * 58)
-        print()
+        """显示页脚（向后兼容）"""
+        self.formatter.show_footer()
     
-    def display_all(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any], 
-                   gpu_info: Dict[str, Any], memory_info: Dict[str, Any]):
-        """显示所有硬件信息"""
-        self.show_banner()
+    # ==================== 配置重载方法 ====================
+    
+    def reload_config(self, config_path: Optional[str] = None):
+        """
+        重新加载配置
         
-        # 定义显示配置
-        displays = [
-            ("GPU", gpu_info.get("name", "未知"), 
-             self.get_gpu_rating(gpu_info.get("name", "未知"))),
-            
-            ("显存", f"{gpu_info.get('memory_gb', 0)}GB", 
-             self.get_vram_rating(gpu_info.get('memory_gb', 0))),
-            
-            ("驱动", gpu_info.get("driver_version", "未知"), 
-             self.get_driver_rating(gpu_info.get("driver_version", "未知"))),
-            
-            ("系统环境", system_info.get("pretty_name", system_info.get("name", "未知")), 
-             self.get_system_rating(system_info.get("pretty_name", system_info.get("name", "未知")))),
-            
-            ("CPU", cpu_info.get("simple_model", cpu_info.get("model", "未知")), 
-             self.get_cpu_rating(cpu_info.get("simple_model", cpu_info.get("model", "未知")))),
-            
-            ("内存", f"{memory_info.get('total_gb', 0)}GB", 
-             self.get_memory_rating(memory_info.get('total_gb', 0))),
-        ]
+        Args:
+            config_path: 配置文件路径（可选）
+        """
+        if config_path:
+            self.config = self.config_manager.load('display', config_path)
+        else:
+            self.config = self.config_manager.load('display', 'config.yaml')
         
-        # 循环显示
-        for label, value, rating in displays:
-            self._show_info(label, value, rating)
-        
-        self.show_footer()
+        # 重新初始化评级计算器
+        self.rating = HardwareRating(self.config)
+        self.formatter = HardwareFormatter(self.rating, self.width)
 
 
-# ==================== 便捷函数 ====================
+# ==================== 便捷函数（保持向后兼容） ====================
 
 def create_display(config_path: Optional[str] = None) -> HardwareDisplay:
+    """
+    创建硬件显示器实例
+    
+    Args:
+        config_path: 配置文件路径
+        
+    Returns:
+        HardwareDisplay实例
+    """
     return HardwareDisplay(config_path=config_path)
 
 
 def display_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any],
                          gpu_info: Dict[str, Any], memory_info: Dict[str, Any],
                          config_path: Optional[str] = None):
+    """
+    显示硬件信息（便捷函数）
+    
+    Args:
+        system_info: 系统信息
+        cpu_info: CPU信息
+        gpu_info: GPU信息
+        memory_info: 内存信息
+        config_path: 配置文件路径
+    """
     display = HardwareDisplay(config_path=config_path)
     display.display_all(system_info, cpu_info, gpu_info, memory_info)
 
 
-def format_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any], 
+def format_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any],
                         gpu_info: Dict[str, Any], memory_info: Dict[str, Any],
-                        config_path: Optional[str] = None) -> str:
+                        config_path: Optional[str] = None, width: int = 100) -> str:
+    """
+    格式化硬件信息为文本（便捷函数）
+    
+    Args:
+        system_info: 系统信息
+        cpu_info: CPU信息
+        gpu_info: GPU信息
+        memory_info: 内存信息
+        config_path: 配置文件路径
+        width: 文本宽度
+        
+    Returns:
+        格式化的文本字符串
+    """
     display = HardwareDisplay(config_path=config_path)
-    
-    lines = []
-    lines.append("=" * 58)
-    lines.append("        你的硬件检测结果")
-    lines.append("=" * 58)
-    lines.append("")
-    
-    def add_line(label, value, rating):
-        spaces = " " * 4
-        col1 = f"{spaces}{label}：{value}"
-        col1_padded = display._pad_to_width(col1, 35)
-        lines.append(f"{col1_padded}{rating}")
-    
-    # 定义显示配置
-    displays = [
-        ("GPU", gpu_info.get("name", "未知"), 
-         display.get_gpu_rating(gpu_info.get("name", "未知"))),
-        
-        ("显存", f"{gpu_info.get('memory_gb', 0)}GB", 
-         display.get_vram_rating(gpu_info.get('memory_gb', 0))),
-        
-        ("驱动", gpu_info.get("driver_version", "未知"), 
-         display.get_driver_rating(gpu_info.get("driver_version", "未知"))),
-        
-        ("系统环境", system_info.get("pretty_name", system_info.get("name", "未知")), 
-         display.get_system_rating(system_info.get("pretty_name", system_info.get("name", "未知")))),
-        
-        ("CPU", cpu_info.get("simple_model", cpu_info.get("model", "未知")), 
-         display.get_cpu_rating(cpu_info.get("simple_model", cpu_info.get("model", "未知")))),
-        
-        ("内存", f"{memory_info.get('total_gb', 0)}GB", 
-         display.get_memory_rating(memory_info.get('total_gb', 0))),
-    ]
-    
-    for label, value, rating in displays:
-        add_line(label, value, rating)
-    
-    lines.append("")
-    lines.append("=" * 58)
-    lines.append("")
-    
-    return "\n".join(lines)
+    return display.format_text(system_info, cpu_info, gpu_info, memory_info, width)
