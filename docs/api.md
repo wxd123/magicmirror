@@ -18,17 +18,20 @@
 - 🅼 [magicm\.detector\.hardware\.cpu\.win\_detecter](#magicm-detector-hardware-cpu-win_detecter)
 - 🅼 [magicm\.detector\.hardware\.gpu](#magicm-detector-hardware-gpu)
 - 🅼 [magicm\.detector\.hardware\.gpu\.amd](#magicm-detector-hardware-gpu-amd)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands](#magicm-detector-hardware-gpu-commands)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands\.amd\_command](#magicm-detector-hardware-gpu-commands-amd_command)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands\.apple\_command](#magicm-detector-hardware-gpu-commands-apple_command)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands\.huawei\_command](#magicm-detector-hardware-gpu-commands-huawei_command)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands\.intel\_command](#magicm-detector-hardware-gpu-commands-intel_command)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands\.nvidia\_command](#magicm-detector-hardware-gpu-commands-nvidia_command)
+- 🅼 [magicm\.detector\.hardware\.gpu\.commands\.qualcomm\_command](#magicm-detector-hardware-gpu-commands-qualcomm_command)
+- 🅼 [magicm\.detector\.hardware\.gpu\.core](#magicm-detector-hardware-gpu-core)
+- 🅼 [magicm\.detector\.hardware\.gpu\.core\.base](#magicm-detector-hardware-gpu-core-base)
+- 🅼 [magicm\.detector\.hardware\.gpu\.core\.command\_executor](#magicm-detector-hardware-gpu-core-command_executor)
+- 🅼 [magicm\.detector\.hardware\.gpu\.core\.factory](#magicm-detector-hardware-gpu-core-factory)
 - 🅼 [magicm\.detector\.hardware\.gpu\.gpu\_detecter](#magicm-detector-hardware-gpu-gpu_detecter)
-- 🅼 [magicm\.detector\.hardware\.gpu\.gpu\_typer](#magicm-detector-hardware-gpu-gpu_typer)
-- 🅼 [magicm\.detector\.hardware\.gpu\.nvidia\_detecter](#magicm-detector-hardware-gpu-nvidia_detecter)
-- 🅼 [magicm\.detector\.hardware\.gpu\.system](#magicm-detector-hardware-gpu-system)
-- 🅼 [magicm\.detector\.hardware\.gpu\.system\.linux\_detecter](#magicm-detector-hardware-gpu-system-linux_detecter)
-- 🅼 [magicm\.detector\.hardware\.gpu\.system\.mac\_detecter](#magicm-detector-hardware-gpu-system-mac_detecter)
-- 🅼 [magicm\.detector\.hardware\.gpu\.system\.win\_detecter](#magicm-detector-hardware-gpu-system-win_detecter)
 - 🅼 [magicm\.detector\.hardware\.gpu\.vendor](#magicm-detector-hardware-gpu-vendor)
 - 🅼 [magicm\.detector\.hardware\.gpu\.vendor\.amd](#magicm-detector-hardware-gpu-vendor-amd)
-- 🅼 [magicm\.detector\.hardware\.gpu\.vendor\.base](#magicm-detector-hardware-gpu-vendor-base)
-- 🅼 [magicm\.detector\.hardware\.gpu\.vendor\.factory](#magicm-detector-hardware-gpu-vendor-factory)
 - 🅼 [magicm\.detector\.hardware\.gpu\.vendor\.huawei](#magicm-detector-hardware-gpu-vendor-huawei)
 - 🅼 [magicm\.detector\.hardware\.gpu\.vendor\.intel](#magicm-detector-hardware-gpu-vendor-intel)
 - 🅼 [magicm\.detector\.hardware\.gpu\.vendor\.nvidia](#magicm-detector-hardware-gpu-vendor-nvidia)
@@ -44,6 +47,7 @@
 - 🅼 [magicm\.detector\.software\.driver\.rocm](#magicm-detector-software-driver-rocm)
 - 🅼 [magicm\.detector\.software\.system](#magicm-detector-software-system)
 - 🅼 [magicm\.detector\.software\.system\.linux\_detecter](#magicm-detector-software-system-linux_detecter)
+- 🅼 [magicm\.detector\.software\.system\.mac\_detecter](#magicm-detector-software-system-mac_detecter)
 - 🅼 [magicm\.detector\.software\.system\.sys\_detecter](#magicm-detector-software-system-sys_detecter)
 - 🅼 [magicm\.detector\.software\.system\.win\_detecter](#magicm-detector-software-system-win_detecter)
 - 🅼 [magicm\.management](#magicm-management)
@@ -64,46 +68,10 @@
 magicm CLI 硬件检测工具
 
 - **Functions:**
-  - 🅵 [get\_system\_info](#magicm-cli-get_system_info)
-  - 🅵 [get\_cpu\_info](#magicm-cli-get_cpu_info)
-  - 🅵 [get\_gpu\_info](#magicm-cli-get_gpu_info)
-  - 🅵 [get\_memory\_info](#magicm-cli-get_memory_info)
   - 🅵 [main](#magicm-cli-main)
 
 ### Functions
 
-<a name="magicm-cli-get_system_info"></a>
-### 🅵 magicm\.cli\.get\_system\_info
-
-```python
-def get_system_info():
-```
-
-获取系统信息
-<a name="magicm-cli-get_cpu_info"></a>
-### 🅵 magicm\.cli\.get\_cpu\_info
-
-```python
-def get_cpu_info():
-```
-
-获取CPU信息
-<a name="magicm-cli-get_gpu_info"></a>
-### 🅵 magicm\.cli\.get\_gpu\_info
-
-```python
-def get_gpu_info():
-```
-
-获取GPU信息
-<a name="magicm-cli-get_memory_info"></a>
-### 🅵 magicm\.cli\.get\_memory\_info
-
-```python
-def get_memory_info():
-```
-
-获取内存信息
 <a name="magicm-cli-main"></a>
 ### 🅵 magicm\.cli\.main
 
@@ -118,10 +86,64 @@ def main():
 ## 🅼 magicm\.command\.deploy
 <a name="magicm-command-detecter"></a>
 ## 🅼 magicm\.command\.detecter
+
+magicm CLI 硬件检测工具
+
+- **Functions:**
+  - 🅵 [get\_system\_info](#magicm-command-detecter-get_system_info)
+  - 🅵 [get\_cpu\_info](#magicm-command-detecter-get_cpu_info)
+  - 🅵 [get\_gpu\_info](#magicm-command-detecter-get_gpu_info)
+  - 🅵 [get\_memory\_info](#magicm-command-detecter-get_memory_info)
+  - 🅵 [detect](#magicm-command-detecter-detect)
+
+### Functions
+
+<a name="magicm-command-detecter-get_system_info"></a>
+### 🅵 magicm\.command\.detecter\.get\_system\_info
+
+```python
+def get_system_info():
+```
+
+获取系统信息
+<a name="magicm-command-detecter-get_cpu_info"></a>
+### 🅵 magicm\.command\.detecter\.get\_cpu\_info
+
+```python
+def get_cpu_info():
+```
+
+获取CPU信息
+<a name="magicm-command-detecter-get_gpu_info"></a>
+### 🅵 magicm\.command\.detecter\.get\_gpu\_info
+
+```python
+def get_gpu_info():
+```
+
+获取GPU信息
+<a name="magicm-command-detecter-get_memory_info"></a>
+### 🅵 magicm\.command\.detecter\.get\_memory\_info
+
+```python
+def get_memory_info():
+```
+
+获取内存信息
+<a name="magicm-command-detecter-detect"></a>
+### 🅵 magicm\.command\.detecter\.detect
+
+```python
+def detect():
+```
+
+主函数：顺序调用各检测模块，然后交给 display 显示
 <a name="magicm-command-display"></a>
 ## 🅼 magicm\.command\.display
 
-硬件检测结果显示模块
+硬件检测结果显示模块（主入口）
+
+这是对外的主要接口，保持向后兼容
 
 - **Functions:**
   - 🅵 [create\_display](#magicm-command-display-create_display)
@@ -138,18 +160,54 @@ def main():
 ```python
 def create_display(config_path: Optional[str] = None) -> HardwareDisplay:
 ```
+
+创建硬件显示器实例
+
+**Parameters:**
+
+- **config_path**: 配置文件路径
+
+**Returns:**
+
+- HardwareDisplay实例
 <a name="magicm-command-display-display_hardware_info"></a>
 ### 🅵 magicm\.command\.display\.display\_hardware\_info
 
 ```python
-def display_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any], gpu_info: Dict[str, Any], memory_info: Dict[str, Any], config_path: Optional[str] = None):
+def display_hardware_info(system_info: Dict[str, Any], config_path: Optional[str] = None):
 ```
+
+显示硬件信息（便捷函数）
+
+Args:
+    system\_info: \{
+        'system':   ,
+        'cpu':      ,
+        'gpu':      ,
+        'mem':      
+    \},        
+    config\_path: 配置文件路径
 <a name="magicm-command-display-format_hardware_info"></a>
 ### 🅵 magicm\.command\.display\.format\_hardware\_info
 
 ```python
-def format_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any], gpu_info: Dict[str, Any], memory_info: Dict[str, Any], config_path: Optional[str] = None) -> str:
+def format_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any], gpu_info: Dict[str, Any], memory_info: Dict[str, Any], config_path: Optional[str] = None, width: int = 100) -> str:
 ```
+
+格式化硬件信息为文本（便捷函数）
+
+**Parameters:**
+
+- **system_info**: 系统信息
+- **cpu_info**: CPU信息
+- **gpu_info**: GPU信息
+- **memory_info**: 内存信息
+- **config_path**: 配置文件路径
+- **width**: 文本宽度
+
+**Returns:**
+
+- 格式化的文本字符串
 
 ### Classes
 
@@ -160,7 +218,7 @@ def format_hardware_info(system_info: Dict[str, Any], cpu_info: Dict[str, Any], 
 class HardwareDisplay:
 ```
 
-硬件检测结果展示类
+硬件检测结果展示类（门面模式）
 
 **Functions:**
 
@@ -170,42 +228,97 @@ class HardwareDisplay:
 ```python
 def __init__(self, config: Optional[Dict[str, Any]] = None, config_path: Optional[str] = None):
 ```
+
+初始化硬件显示器
+
+**Parameters:**
+
+- **config**: 配置字典（可选）
+- **config_path**: 配置文件路径（可选）
+<a name="magicm-command-display-HardwareDisplay-display_all"></a>
+#### 🅵 magicm\.command\.display\.HardwareDisplay\.display\_all
+
+```python
+def display_all(self, system_info: Dict[str, Any]):
+```
+
+显示所有硬件信息（控制台输出）
+
+Args:
+    system\_info: 系统信息, \{
+        'system':   system\_info,
+        'cpu':      cpu\_info,
+        'gpu':      gpu\_info,
+        'mem':      memory\_info
+    \}
+<a name="magicm-command-display-HardwareDisplay-format_text"></a>
+#### 🅵 magicm\.command\.display\.HardwareDisplay\.format\_text
+
+```python
+def format_text(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any], gpu_info: Dict[str, Any], memory_info: Dict[str, Any], width: int = 100) -> str:
+```
+
+返回格式化的文本
+
+**Parameters:**
+
+- **system_info**: 系统信息
+- **cpu_info**: CPU信息
+- **gpu_info**: GPU信息
+- **memory_info**: 内存信息
+- **width**: 文本宽度
+
+**Returns:**
+
+- 格式化的文本字符串
 <a name="magicm-command-display-HardwareDisplay-get_gpu_rating"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.get\_gpu\_rating
 
 ```python
 def get_gpu_rating(self, gpu_name: str) -> str:
 ```
+
+获取GPU评级（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-get_vram_rating"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.get\_vram\_rating
 
 ```python
 def get_vram_rating(self, vram_gb: int) -> str:
 ```
+
+获取显存评级（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-get_driver_rating"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.get\_driver\_rating
 
 ```python
 def get_driver_rating(self, driver_version: str) -> str:
 ```
+
+获取驱动评级（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-get_system_rating"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.get\_system\_rating
 
 ```python
 def get_system_rating(self, os_name: str) -> str:
 ```
+
+获取系统评级（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-get_cpu_rating"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.get\_cpu\_rating
 
 ```python
 def get_cpu_rating(self, cpu_model: str) -> str:
 ```
+
+获取CPU评级（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-get_memory_rating"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.get\_memory\_rating
 
 ```python
 def get_memory_rating(self, memory_gb: int) -> str:
 ```
+
+获取内存评级（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-show_banner"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.show\_banner
 
@@ -213,21 +326,27 @@ def get_memory_rating(self, memory_gb: int) -> str:
 def show_banner(self):
 ```
 
-显示欢迎横幅
+显示欢迎横幅（向后兼容）
 <a name="magicm-command-display-HardwareDisplay-show_footer"></a>
 #### 🅵 magicm\.command\.display\.HardwareDisplay\.show\_footer
 
 ```python
 def show_footer(self):
 ```
-<a name="magicm-command-display-HardwareDisplay-display_all"></a>
-#### 🅵 magicm\.command\.display\.HardwareDisplay\.display\_all
+
+显示页脚（向后兼容）
+<a name="magicm-command-display-HardwareDisplay-reload_config"></a>
+#### 🅵 magicm\.command\.display\.HardwareDisplay\.reload\_config
 
 ```python
-def display_all(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any], gpu_info: Dict[str, Any], memory_info: Dict[str, Any]):
+def reload_config(self, config_path: Optional[str] = None):
 ```
 
-显示所有硬件信息
+重新加载配置
+
+**Parameters:**
+
+- **config_path**: 配置文件路径（可选）
 <a name="magicm-detector"></a>
 ## 🅼 magicm\.detector
 <a name="magicm-detector-hardware"></a>
@@ -371,6 +490,564 @@ Windows系统CPU检测函数。
 ## 🅼 magicm\.detector\.hardware\.gpu
 <a name="magicm-detector-hardware-gpu-amd"></a>
 ## 🅼 magicm\.detector\.hardware\.gpu\.amd
+<a name="magicm-detector-hardware-gpu-commands"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands
+
+- **[Exports](#magicm-detector-hardware-gpu-commands-exports)**
+
+<a name="magicm-detector-hardware-gpu-commands-exports"></a>
+### Exports
+
+- 🅼 [`NVIDIACommand`](#magicm-detector-hardware-gpu-commands-NVIDIACommand)
+- 🅼 [`AMDCommand`](#magicm-detector-hardware-gpu-commands-AMDCommand)
+- 🅼 [`IntelCommand`](#magicm-detector-hardware-gpu-commands-IntelCommand)
+- 🅼 [`HuaweiCommand`](#magicm-detector-hardware-gpu-commands-HuaweiCommand)
+<a name="magicm-detector-hardware-gpu-commands-amd_command"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands\.amd\_command
+
+- **Classes:**
+  - 🅲 [AMDCommand](#magicm-detector-hardware-gpu-commands-amd_command-AMDCommand)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-commands-amd_command-AMDCommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.commands\.amd\_command\.AMDCommand
+
+```python
+class AMDCommand(GPUDetectionCommand):
+```
+
+AMD GPU检测命令
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-commands-amd_command-AMDCommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.amd\_command\.AMDCommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+<a name="magicm-detector-hardware-gpu-commands-amd_command-AMDCommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.amd\_command\.AMDCommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+<a name="magicm-detector-hardware-gpu-commands-amd_command-AMDCommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.amd\_command\.AMDCommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行AMD GPU检测
+<a name="magicm-detector-hardware-gpu-commands-apple_command"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands\.apple\_command
+
+- **Classes:**
+  - 🅲 [AppleCommand](#magicm-detector-hardware-gpu-commands-apple_command-AppleCommand)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-commands-apple_command-AppleCommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.commands\.apple\_command\.AppleCommand
+
+```python
+class AppleCommand(GPUDetectionCommand):
+```
+
+Apple Silicon GPU检测命令 - 新增厂商示例
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-commands-apple_command-AppleCommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.apple\_command\.AppleCommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+<a name="magicm-detector-hardware-gpu-commands-apple_command-AppleCommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.apple\_command\.AppleCommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+<a name="magicm-detector-hardware-gpu-commands-apple_command-AppleCommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.apple\_command\.AppleCommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行Apple Silicon GPU检测
+<a name="magicm-detector-hardware-gpu-commands-huawei_command"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands\.huawei\_command
+
+- **Classes:**
+  - 🅲 [HuaweiCommand](#magicm-detector-hardware-gpu-commands-huawei_command-HuaweiCommand)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-commands-huawei_command-HuaweiCommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.commands\.huawei\_command\.HuaweiCommand
+
+```python
+class HuaweiCommand(GPUDetectionCommand):
+```
+
+华为昇腾GPU检测命令
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-commands-huawei_command-HuaweiCommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.huawei\_command\.HuaweiCommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+<a name="magicm-detector-hardware-gpu-commands-huawei_command-HuaweiCommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.huawei\_command\.HuaweiCommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+<a name="magicm-detector-hardware-gpu-commands-huawei_command-HuaweiCommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.huawei\_command\.HuaweiCommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行华为昇腾GPU检测
+<a name="magicm-detector-hardware-gpu-commands-intel_command"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands\.intel\_command
+
+- **Classes:**
+  - 🅲 [IntelCommand](#magicm-detector-hardware-gpu-commands-intel_command-IntelCommand)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-commands-intel_command-IntelCommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.commands\.intel\_command\.IntelCommand
+
+```python
+class IntelCommand(GPUDetectionCommand):
+```
+
+Intel GPU检测命令
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-commands-intel_command-IntelCommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.intel\_command\.IntelCommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+<a name="magicm-detector-hardware-gpu-commands-intel_command-IntelCommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.intel\_command\.IntelCommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+<a name="magicm-detector-hardware-gpu-commands-intel_command-IntelCommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.intel\_command\.IntelCommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行Intel GPU检测
+<a name="magicm-detector-hardware-gpu-commands-nvidia_command"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands\.nvidia\_command
+
+- **Classes:**
+  - 🅲 [NVIDIACommand](#magicm-detector-hardware-gpu-commands-nvidia_command-NVIDIACommand)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-commands-nvidia_command-NVIDIACommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.commands\.nvidia\_command\.NVIDIACommand
+
+```python
+class NVIDIACommand(GPUDetectionCommand):
+```
+
+NVIDIA GPU检测命令
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-commands-nvidia_command-NVIDIACommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.nvidia\_command\.NVIDIACommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+<a name="magicm-detector-hardware-gpu-commands-nvidia_command-NVIDIACommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.nvidia\_command\.NVIDIACommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+<a name="magicm-detector-hardware-gpu-commands-nvidia_command-NVIDIACommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.nvidia\_command\.NVIDIACommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行NVIDIA GPU检测
+<a name="magicm-detector-hardware-gpu-commands-qualcomm_command"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.commands\.qualcomm\_command
+
+- **Classes:**
+  - 🅲 [QualcommCommand](#magicm-detector-hardware-gpu-commands-qualcomm_command-QualcommCommand)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-commands-qualcomm_command-QualcommCommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.commands\.qualcomm\_command\.QualcommCommand
+
+```python
+class QualcommCommand(GPUDetectionCommand):
+```
+
+高通Adreno GPU检测命令 - 新增厂商示例
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-commands-qualcomm_command-QualcommCommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.qualcomm\_command\.QualcommCommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+<a name="magicm-detector-hardware-gpu-commands-qualcomm_command-QualcommCommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.qualcomm\_command\.QualcommCommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+<a name="magicm-detector-hardware-gpu-commands-qualcomm_command-QualcommCommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.commands\.qualcomm\_command\.QualcommCommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行高通Adreno GPU检测
+<a name="magicm-detector-hardware-gpu-core"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.core
+<a name="magicm-detector-hardware-gpu-core-base"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.core\.base
+
+- **Classes:**
+  - 🅲 [SystemType](#magicm-detector-hardware-gpu-core-base-SystemType)
+  - 🅲 [GPUVendor](#magicm-detector-hardware-gpu-core-base-GPUVendor)
+  - 🅲 [GPUType](#magicm-detector-hardware-gpu-core-base-GPUType)
+  - 🅲 [GPUInfo](#magicm-detector-hardware-gpu-core-base-GPUInfo)
+  - 🅲 [DetectionResult](#magicm-detector-hardware-gpu-core-base-DetectionResult)
+  - 🅲 [GPUDetectionCommand](#magicm-detector-hardware-gpu-core-base-GPUDetectionCommand)
+  - 🅲 [PlatformAdapter](#magicm-detector-hardware-gpu-core-base-PlatformAdapter)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-core-base-SystemType"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.SystemType
+
+```python
+class SystemType(Enum):
+```
+
+系统类型 - 扩展少
+<a name="magicm-detector-hardware-gpu-core-base-GPUVendor"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.GPUVendor
+
+```python
+class GPUVendor(Enum):
+```
+
+GPU厂商 - 扩展多
+<a name="magicm-detector-hardware-gpu-core-base-GPUType"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.GPUType
+
+```python
+class GPUType(Enum):
+```
+
+GPU类型
+<a name="magicm-detector-hardware-gpu-core-base-GPUInfo"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.GPUInfo
+
+```python
+class GPUInfo:
+```
+
+GPU信息数据类 - 兼容原有API
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-base-GPUInfo-to_dict"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.GPUInfo\.to\_dict
+
+```python
+def to_dict(self) -> Dict[str, Any]:
+```
+
+转换为字典 - 兼容原有格式
+<a name="magicm-detector-hardware-gpu-core-base-DetectionResult"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.DetectionResult
+
+```python
+class DetectionResult:
+```
+
+检测结果数据类 - 兼容原有API
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-base-DetectionResult-main_gpu"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.DetectionResult\.main\_gpu
+
+```python
+def main_gpu(self) -> Optional[GPUInfo]:
+```
+
+获取主GPU（优先离散，其次集成）
+<a name="magicm-detector-hardware-gpu-core-base-DetectionResult-to_dict"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.DetectionResult\.to\_dict
+
+```python
+def to_dict(self) -> Dict[str, Any]:
+```
+
+转换为字典 - 兼容原有格式
+<a name="magicm-detector-hardware-gpu-core-base-GPUDetectionCommand"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.GPUDetectionCommand
+
+```python
+class GPUDetectionCommand(ABC):
+```
+
+GPU检测命令接口
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-base-GPUDetectionCommand-execute"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.GPUDetectionCommand\.execute
+
+```python
+def execute(self, context: Dict[str, Any]) -> List[GPUInfo]:
+```
+
+执行检测命令
+<a name="magicm-detector-hardware-gpu-core-base-GPUDetectionCommand-get_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.GPUDetectionCommand\.get\_vendor
+
+```python
+def get_vendor(self) -> GPUVendor:
+```
+
+返回厂商类型
+<a name="magicm-detector-hardware-gpu-core-base-GPUDetectionCommand-get_priority"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.GPUDetectionCommand\.get\_priority
+
+```python
+def get_priority(self) -> int:
+```
+
+优先级（数值越小越先执行）
+<a name="magicm-detector-hardware-gpu-core-base-PlatformAdapter"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.base\.PlatformAdapter
+
+```python
+class PlatformAdapter(ABC):
+```
+
+平台适配器接口
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-base-PlatformAdapter-get_system_type"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.PlatformAdapter\.get\_system\_type
+
+```python
+def get_system_type(self) -> SystemType:
+```
+
+获取系统类型
+<a name="magicm-detector-hardware-gpu-core-base-PlatformAdapter-run_command"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.PlatformAdapter\.run\_command
+
+```python
+def run_command(self, cmd: str) -> tuple:
+```
+
+执行命令
+<a name="magicm-detector-hardware-gpu-core-base-PlatformAdapter-get_gpu_list"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.base\.PlatformAdapter\.get\_gpu\_list
+
+```python
+def get_gpu_list(self) -> List[Dict[str, Any]]:
+```
+
+获取GPU原始列表
+<a name="magicm-detector-hardware-gpu-core-command_executor"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.core\.command\_executor
+
+- **Classes:**
+  - 🅲 [CommandRegistry](#magicm-detector-hardware-gpu-core-command_executor-CommandRegistry)
+  - 🅲 [GPUCommandExecutor](#magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-core-command_executor-CommandRegistry"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.CommandRegistry
+
+```python
+class CommandRegistry:
+```
+
+命令注册器
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-command_executor-CommandRegistry-register"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.CommandRegistry\.register
+
+```python
+def register(cls, command: GPUDetectionCommand):
+```
+
+注册命令
+<a name="magicm-detector-hardware-gpu-core-command_executor-CommandRegistry-get"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.CommandRegistry\.get
+
+```python
+def get(cls, vendor: GPUVendor) -> Optional[GPUDetectionCommand]:
+```
+
+获取命令
+<a name="magicm-detector-hardware-gpu-core-command_executor-CommandRegistry-get_all"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.CommandRegistry\.get\_all
+
+```python
+def get_all(cls) -> List[GPUDetectionCommand]:
+```
+
+获取所有命令（按优先级排序）
+<a name="magicm-detector-hardware-gpu-core-command_executor-CommandRegistry-clear"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.CommandRegistry\.clear
+
+```python
+def clear(cls):
+```
+
+清空所有命令
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor
+
+```python
+class GPUCommandExecutor:
+```
+
+GPU命令执行器 - 核心业务逻辑
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor-__init__"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor\.\_\_init\_\_
+
+```python
+def __init__(self, system: str = None):
+```
+
+初始化执行器
+
+**Parameters:**
+
+- **system**: 系统类型 \(linux/windows/macos\)，None表示自动检测
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor-detect_all"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor\.detect\_all
+
+```python
+def detect_all(self) -> DetectionResult:
+```
+
+检测所有GPU - 返回DetectionResult
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor-detect_by_vendor"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor\.detect\_by\_vendor
+
+```python
+def detect_by_vendor(self, vendor: GPUVendor) -> List[GPUInfo]:
+```
+
+检测特定厂商的GPU
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor-add_command"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor\.add\_command
+
+```python
+def add_command(self, command: GPUDetectionCommand):
+```
+
+动态添加命令（用于扩展）
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor-remove_command"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor\.remove\_command
+
+```python
+def remove_command(self, vendor: GPUVendor):
+```
+
+移除命令
+<a name="magicm-detector-hardware-gpu-core-command_executor-GPUCommandExecutor-get_registered_vendors"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.command\_executor\.GPUCommandExecutor\.get\_registered\_vendors
+
+```python
+def get_registered_vendors(self) -> List[GPUVendor]:
+```
+
+获取已注册的厂商列表
+<a name="magicm-detector-hardware-gpu-core-factory"></a>
+## 🅼 magicm\.detector\.hardware\.gpu\.core\.factory
+
+- **Classes:**
+  - 🅲 [GPUDetectorFactory](#magicm-detector-hardware-gpu-core-factory-GPUDetectorFactory)
+
+### Classes
+
+<a name="magicm-detector-hardware-gpu-core-factory-GPUDetectorFactory"></a>
+### 🅲 magicm\.detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory
+
+```python
+class GPUDetectorFactory:
+```
+
+GPU检测器工厂
+
+**Functions:**
+
+<a name="magicm-detector-hardware-gpu-core-factory-GPUDetectorFactory-__init__"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory\.\_\_init\_\_
+
+```python
+def __init__(self):
+```
+<a name="magicm-detector-hardware-gpu-core-factory-GPUDetectorFactory-get_detector"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory\.get\_detector
+
+```python
+def get_detector(self, lspci_line: str, gpu_name: str) -> Optional[BaseGPUDetector]:
+```
+
+根据lspci行获取合适的检测器
+<a name="magicm-detector-hardware-gpu-core-factory-GPUDetectorFactory-detect_all"></a>
+#### 🅵 magicm\.detector\.hardware\.gpu\.core\.factory\.GPUDetectorFactory\.detect\_all
+
+```python
+def detect_all(self) -> DetectionResult:
+```
+
+检测所有GPU
 <a name="magicm-detector-hardware-gpu-gpu_detecter"></a>
 ## 🅼 magicm\.detector\.hardware\.gpu\.gpu\_detecter
 
@@ -384,118 +1061,30 @@ Windows系统CPU检测函数。
 ### 🅵 magicm\.detector\.hardware\.gpu\.gpu\_detecter\.gpu\_detected
 
 ```python
-def gpu_detected():
+def gpu_detected() -> Dict[str, Any]:
 ```
 
 检测GPU信息（独立显卡和集成显卡）
+
+这是API文档中定义的接口，保持向后兼容
+
+**Returns:**
+
+- `Dict`: GPU检测结果字典
 <a name="magicm-detector-hardware-gpu-gpu_detecter-get_gpu_summary"></a>
 ### 🅵 magicm\.detector\.hardware\.gpu\.gpu\_detecter\.get\_gpu\_summary
 
 ```python
-def get_gpu_summary():
+def get_gpu_summary() -> Dict[str, Any]:
 ```
 
 获取GPU摘要信息
-<a name="magicm-detector-hardware-gpu-gpu_typer"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.gpu\_typer
 
-- **Functions:**
-  - 🅵 [determine](#magicm-detector-hardware-gpu-gpu_typer-determine)
+这是API文档中定义的接口
 
-### Functions
+**Returns:**
 
-<a name="magicm-detector-hardware-gpu-gpu_typer-determine"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.gpu\_typer\.determine
-
-```python
-def determine(name):
-```
-
-判断显卡类型（独立还是集成）
-<a name="magicm-detector-hardware-gpu-nvidia_detecter"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.nvidia\_detecter
-
-- **Functions:**
-  - 🅵 [nvidia\_driver](#magicm-detector-hardware-gpu-nvidia_detecter-nvidia_driver)
-  - 🅵 [cuda\_version](#magicm-detector-hardware-gpu-nvidia_detecter-cuda_version)
-  - 🅵 [nvidia\_gpu\_name](#magicm-detector-hardware-gpu-nvidia_detecter-nvidia_gpu_name)
-
-### Functions
-
-<a name="magicm-detector-hardware-gpu-nvidia_detecter-nvidia_driver"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.nvidia\_detecter\.nvidia\_driver
-
-```python
-def nvidia_driver(output):
-```
-
-从nvidia-smi输出中提取驱动版本
-<a name="magicm-detector-hardware-gpu-nvidia_detecter-cuda_version"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.nvidia\_detecter\.cuda\_version
-
-```python
-def cuda_version(output):
-```
-
-从nvidia-smi输出中提取CUDA版本
-<a name="magicm-detector-hardware-gpu-nvidia_detecter-nvidia_gpu_name"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.nvidia\_detecter\.nvidia\_gpu\_name
-
-```python
-def nvidia_gpu_name(output):
-```
-
-从nvidia-smi输出中提取GPU名称
-<a name="magicm-detector-hardware-gpu-system"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.system
-<a name="magicm-detector-hardware-gpu-system-linux_detecter"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.system\.linux\_detecter
-
-- **Functions:**
-  - 🅵 [detect](#magicm-detector-hardware-gpu-system-linux_detecter-detect)
-
-### Functions
-
-<a name="magicm-detector-hardware-gpu-system-linux_detecter-detect"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.system\.linux\_detecter\.detect
-
-```python
-def detect():
-```
-
-Linux系统GPU检测 - 增强版
-<a name="magicm-detector-hardware-gpu-system-mac_detecter"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.system\.mac\_detecter
-
-- **Functions:**
-  - 🅵 [detect](#magicm-detector-hardware-gpu-system-mac_detecter-detect)
-
-### Functions
-
-<a name="magicm-detector-hardware-gpu-system-mac_detecter-detect"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.system\.mac\_detecter\.detect
-
-```python
-def detect():
-```
-
-macOS系统GPU检测
-<a name="magicm-detector-hardware-gpu-system-win_detecter"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.system\.win\_detecter
-
-- **Functions:**
-  - 🅵 [detect](#magicm-detector-hardware-gpu-system-win_detecter-detect)
-
-### Functions
-
-<a name="magicm-detector-hardware-gpu-system-win_detecter-detect"></a>
-### 🅵 magicm\.detector\.hardware\.gpu\.system\.win\_detecter\.detect
-
-```python
-def detect():
-```
-
-Windows系统GPU检测（独立\+集成）
+- `Dict`: GPU摘要信息
 <a name="magicm-detector-hardware-gpu-vendor"></a>
 ## 🅼 magicm\.detector\.hardware\.gpu\.vendor
 <a name="magicm-detector-hardware-gpu-vendor-amd"></a>
@@ -555,168 +1144,6 @@ def enhance_gpu_info(self, gpu_info: GPUInfo) -> GPUInfo:
 ```
 
 增强AMD GPU信息
-<a name="magicm-detector-hardware-gpu-vendor-base"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.vendor\.base
-
-- **Classes:**
-  - 🅲 [GPUVendor](#magicm-detector-hardware-gpu-vendor-base-GPUVendor)
-  - 🅲 [GPUType](#magicm-detector-hardware-gpu-vendor-base-GPUType)
-  - 🅲 [GPUInfo](#magicm-detector-hardware-gpu-vendor-base-GPUInfo)
-  - 🅲 [DetectionResult](#magicm-detector-hardware-gpu-vendor-base-DetectionResult)
-  - 🅲 [BaseGPUDetector](#magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector)
-
-### Classes
-
-<a name="magicm-detector-hardware-gpu-vendor-base-GPUVendor"></a>
-### 🅲 magicm\.detector\.hardware\.gpu\.vendor\.base\.GPUVendor
-
-```python
-class GPUVendor(Enum):
-```
-<a name="magicm-detector-hardware-gpu-vendor-base-GPUType"></a>
-### 🅲 magicm\.detector\.hardware\.gpu\.vendor\.base\.GPUType
-
-```python
-class GPUType(Enum):
-```
-<a name="magicm-detector-hardware-gpu-vendor-base-GPUInfo"></a>
-### 🅲 magicm\.detector\.hardware\.gpu\.vendor\.base\.GPUInfo
-
-```python
-class GPUInfo:
-```
-
-GPU信息数据类
-
-**Functions:**
-
-<a name="magicm-detector-hardware-gpu-vendor-base-GPUInfo-to_dict"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.GPUInfo\.to\_dict
-
-```python
-def to_dict(self) -> Dict[str, Any]:
-```
-
-转换为字典
-<a name="magicm-detector-hardware-gpu-vendor-base-DetectionResult"></a>
-### 🅲 magicm\.detector\.hardware\.gpu\.vendor\.base\.DetectionResult
-
-```python
-class DetectionResult:
-```
-
-检测结果数据类
-
-**Functions:**
-
-<a name="magicm-detector-hardware-gpu-vendor-base-DetectionResult-main_gpu"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.DetectionResult\.main\_gpu
-
-```python
-def main_gpu(self) -> Optional[GPUInfo]:
-```
-
-获取主GPU（优先离散，其次集成）
-<a name="magicm-detector-hardware-gpu-vendor-base-DetectionResult-to_dict"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.DetectionResult\.to\_dict
-
-```python
-def to_dict(self) -> Dict[str, Any]:
-```
-
-转换为字典（兼容原有格式）
-<a name="magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector"></a>
-### 🅲 magicm\.detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector
-
-```python
-class BaseGPUDetector(ABC):
-```
-
-GPU检测器基类
-
-**Functions:**
-
-<a name="magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector-vendor"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.vendor
-
-```python
-def vendor(self) -> GPUVendor:
-```
-
-返回检测器支持的厂商
-<a name="magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector-detect_from_lspci"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.detect\_from\_lspci
-
-```python
-def detect_from_lspci(self, lspci_line: str, gpu_name: str) -> Optional[GPUInfo]:
-```
-
-从lspci行检测GPU信息
-<a name="magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector-detect_driver_version"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.detect\_driver\_version
-
-```python
-def detect_driver_version(self, gpu_info: GPUInfo) -> Optional[str]:
-```
-
-检测驱动版本
-<a name="magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector-enhance_gpu_info"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.enhance\_gpu\_info
-
-```python
-def enhance_gpu_info(self, gpu_info: GPUInfo) -> GPUInfo:
-```
-
-增强GPU信息（填充额外字段）
-<a name="magicm-detector-hardware-gpu-vendor-base-BaseGPUDetector-supports_vendor"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.base\.BaseGPUDetector\.supports\_vendor
-
-```python
-def supports_vendor(self, line: str, name: str) -> bool:
-```
-
-判断是否支持该厂商的GPU
-<a name="magicm-detector-hardware-gpu-vendor-factory"></a>
-## 🅼 magicm\.detector\.hardware\.gpu\.vendor\.factory
-
-- **Classes:**
-  - 🅲 [GPUDetectorFactory](#magicm-detector-hardware-gpu-vendor-factory-GPUDetectorFactory)
-
-### Classes
-
-<a name="magicm-detector-hardware-gpu-vendor-factory-GPUDetectorFactory"></a>
-### 🅲 magicm\.detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory
-
-```python
-class GPUDetectorFactory:
-```
-
-GPU检测器工厂
-
-**Functions:**
-
-<a name="magicm-detector-hardware-gpu-vendor-factory-GPUDetectorFactory-__init__"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory\.\_\_init\_\_
-
-```python
-def __init__(self):
-```
-<a name="magicm-detector-hardware-gpu-vendor-factory-GPUDetectorFactory-get_detector"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory\.get\_detector
-
-```python
-def get_detector(self, lspci_line: str, gpu_name: str) -> Optional[BaseGPUDetector]:
-```
-
-根据lspci行获取合适的检测器
-<a name="magicm-detector-hardware-gpu-vendor-factory-GPUDetectorFactory-detect_all"></a>
-#### 🅵 magicm\.detector\.hardware\.gpu\.vendor\.factory\.GPUDetectorFactory\.detect\_all
-
-```python
-def detect_all(self) -> DetectionResult:
-```
-
-检测所有GPU
 <a name="magicm-detector-hardware-gpu-vendor-huawei"></a>
 ## 🅼 magicm\.detector\.hardware\.gpu\.vendor\.huawei
 
@@ -997,7 +1424,23 @@ Linux 系统检测模块
 def detect():
 ```
 
-检测 Linux 系统信息
+检测 Linux 系统
+<a name="magicm-detector-software-system-mac_detecter"></a>
+## 🅼 magicm\.detector\.software\.system\.mac\_detecter
+
+- **Functions:**
+  - 🅵 [detect](#magicm-detector-software-system-mac_detecter-detect)
+
+### Functions
+
+<a name="magicm-detector-software-system-mac_detecter-detect"></a>
+### 🅵 magicm\.detector\.software\.system\.mac\_detecter\.detect
+
+```python
+def detect():
+```
+
+检测 macOS 系统
 <a name="magicm-detector-software-system-sys_detecter"></a>
 ## 🅼 magicm\.detector\.software\.system\.sys\_detecter
 
@@ -1030,8 +1473,6 @@ Windows 系统检测模块
 ```python
 def detect():
 ```
-
-检测 Windows 系统信息
 <a name="magicm-management"></a>
 ## 🅼 magicm\.management
 <a name="magicm-management-config"></a>

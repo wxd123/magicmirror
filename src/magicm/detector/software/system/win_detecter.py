@@ -1,56 +1,86 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# magicm/detector/software/system/win_detecter.py
 """
 Windows 系统检测模块
 """
 
-import subprocess
 import platform
+import sys
 
 
 def detect():
     """检测 Windows 系统信息"""
-    info = {'name': 'Windows', 'pretty_name': 'Windows'}
     
+    # Windows 版本映射
+    version_map = {
+        (10, 0, 22000): "11",
+        (10, 0, 22621): "11",
+        (10, 0, 22631): "11",
+        (10, 0, 26100): "11",
+        (10, 0, 19045): "10",
+        (10, 0, 19044): "10",
+        (10, 0, 19043): "10",
+        (10, 0, 19042): "10",
+        (10, 0, 18363): "10",
+        (10, 0, 17763): "10",
+        (6, 3, 9600): "8.1",
+        (6, 2, 9200): "8",
+        (6, 1, 7601): "7",
+    }
+    
+    # 获取版本信息
+    version_info = sys.getwindowsversion()
+    major = version_info.major
+    minor = version_info.minor
+    build = version_info.build
+    
+    # 确定 Windows 版本名称
+    win_version = version_map.get((major, minor, build), f"{major}.{minor}")
+    if win_version in ["11", "10"]:
+        # 尝试获取更精确的版本
+        try:
+            import winreg
+            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 
+                                 r"SOFTWARE\Microsoft\Windows NT\CurrentVersion")
+            product_name = winreg.QueryValueEx(key, "ProductName")[0]
+            if "Windows 11" in product_name:
+                win_version = "11"
+            elif "Windows 10" in product_name:
+                win_version = "10"
+            winreg.CloseKey(key)
+        except Exception:
+            pass
+    
+    # 构建完整名称
+    pretty_name = f"Windows {win_version}"
     try:
-        # 方法1: 使用 wmic
-        result = subprocess.run(['wmic', 'os', 'get', 'Caption'], capture_output=True, text=True, timeout=5)
-        if result.returncode == 0:
-            lines = result.stdout.strip().split('\n')
-            if len(lines) > 1:
-                caption = lines[1].strip()
-                if caption:
-                    info['pretty_name'] = caption
-                    if '11' in caption:
-                        info['name'] = 'Windows 11'
-                    elif '10' in caption:
-                        info['name'] = 'Windows 10'
-                    else:
-                        info['name'] = 'Windows'
-                    return info
-    except:
+        import winreg
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+                             r"SOFTWARE\Microsoft\Windows NT\CurrentVersion")
+        edition = winreg.QueryValueEx(key, "EditionID")[0]
+        if edition:
+            pretty_name = f"Windows {win_version} {edition}"
+        winreg.CloseKey(key)
+    except Exception:
         pass
     
-    try:
-        # 方法2: 使用 PowerShell
-        result = subprocess.run(['powershell', '(Get-WmiObject Win32_OperatingSystem).Caption'], 
-                              capture_output=True, text=True, timeout=5)
-        if result.returncode == 0 and result.stdout.strip():
-            caption = result.stdout.strip()
-            info['pretty_name'] = caption
-            if '11' in caption:
-                info['name'] = 'Windows 11'
-            elif '10' in caption:
-                info['name'] = 'Windows 10'
-            else:
-                info['name'] = 'Windows'
-            return info
-    except:
-        pass
-    
-    # 方法3: 回退到 platform
-    release = platform.release()
-    info['name'] = f"Windows {release}"
-    info['pretty_name'] = info['name']
-    
-    return info
+    return {
+        "platform": "windows",
+        "platform_name": "Windows",
+        "distribution": {
+            "name": "Windows",
+            "version": win_version,
+            "pretty_name": pretty_name
+        },
+        "kernel": {
+            "name": "NT",
+            "version": f"{major}.{minor}",
+            "build": str(build),
+            "pretty_version": f"{major}.{minor}.{build}"
+        },
+        "compatibility": {
+            "key": str(build),      # Windows 驱动判断用 Build 号
+            "raw": f"{major}.{minor}.{build}"
+        }
+    }

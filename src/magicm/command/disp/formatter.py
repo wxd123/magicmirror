@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# magicm/command/disp/formatter.py
 """
 硬件显示格式化模块
 """
@@ -83,30 +84,40 @@ class HardwareFormatter:
         print("\n" + "=" * 58)
         print()
     
-    def display_all(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any],
-                   gpu_info: Dict[str, Any], memory_info: Dict[str, Any]):
+    def display_all(self, system_info: Dict[str, Any]):
         """
         显示所有硬件信息（控制台输出）
         
         Args:
-            system_info: 系统信息
-            cpu_info: CPU信息
-            gpu_info: GPU信息
-            memory_info: 内存信息
+            system_info: 系统信息, {
+                'system':   system_info,
+                'cpu':      cpu_info,
+                'gpu':      gpu_info,
+                'mem':      memory_info,
+                'env':      env_info
+            }            
         """
         self.show_banner()
         
         # 获取所有评级
-        ratings = self.rating.get_all_ratings(system_info, cpu_info, gpu_info, memory_info)
+        ratings = self.rating.get_all_ratings(system_info)
         
         # 定义显示配置
+        sys_info = system_info['system']
+        gpu_info = system_info['gpu']
+        cpu_info = system_info['cpu']
+        memory_info = system_info['mem']
+        # env_info = system_info['env']
+
+        if 'distribution' in sys_info:
+            sys_display_name = sys_info['distribution'].get('pretty_name', '未知')
         displays = [
             ("GPU", gpu_info.get("name", "未知"), ratings['gpu']),
             ("显存", f"{gpu_info.get('memory_gb', 0)}GB", ratings['vram']),
-            ("驱动", gpu_info.get("driver_version", "未知"), ratings['driver']),
-            ("系统环境", system_info.get("pretty_name", system_info.get("name", "未知")), ratings['system']),
+            ("驱动", gpu_info.get("driver_version", "未知"), ratings['driver']),            
             ("CPU", cpu_info.get("simple_model", cpu_info.get("model", "未知")), ratings['cpu']),
             ("内存", f"{memory_info.get('total_gb', 0)}GB", ratings['memory']),
+            ("系统环境", sys_info['distribution']['pretty_name'], ratings['system'])
         ]
         
         # 循环显示

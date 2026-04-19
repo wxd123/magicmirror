@@ -11,6 +11,14 @@ pyinitgen --base-dir ./src/magicm
 # 生成api接口文档
 python -m python_docstring_markdown ./src/magicm ./docs/api.md
 
+python -m python_docstring_markdown ./src/magicm/detector/hardware ./docs/api-hardware.md
+
+python -m python_docstring_markdown ./src/magicm/detector/software ./docs/api-software.md
+
+python -m python_docstring_markdown ./src/magicm/detector/management ./docs/api-management.md
+
+python -m python_docstring_markdown ./src/magicm/deploy/enviroment ./docs/api-deploy-enviroment.md
+
 # 安装测试工具
 uv pip install pytest pytest-cov
 

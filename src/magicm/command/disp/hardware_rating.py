@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# magicm/command/disp/hardware_rating.py
 """
 硬件评级计算模块
 """
@@ -161,25 +162,30 @@ class HardwareRating:
         
         return ratings[-1].get('rating', '【未知】') if ratings else "【未知】"
     
-    def get_all_ratings(self, system_info: Dict[str, Any], cpu_info: Dict[str, Any],
-                       gpu_info: Dict[str, Any], memory_info: Dict[str, Any]) -> Dict[str, str]:
+    def get_all_ratings(self, system_info: Dict[str, Any]) -> Dict[str, str]:
         """
         一次性获取所有评级
         
         Args:
-            system_info: 系统信息
-            cpu_info: CPU信息
-            gpu_info: GPU信息
-            memory_info: 内存信息
+            system_info: 系统信息,return {
+                'system':   system_info,
+                'cpu':      cpu_info,
+                'gpu':      gpu_info,
+                'mem':      memory_info
+            }        
             
         Returns:
             包含所有评级的字典
         """
+        gpu_info = system_info['gpu']
+        cpu_info = system_info['cpu']
+        memory_info = system_info['mem']
+        sys_info = system_info['system']
         return {
             'gpu': self.get_gpu_rating(gpu_info.get('name', '未知')),
             'vram': self.get_vram_rating(gpu_info.get('memory_gb', 0)),
             'driver': self.get_driver_rating(gpu_info.get('driver_version', '未知')),
-            'system': self.get_system_rating(system_info.get('pretty_name', system_info.get('name', '未知'))),
+            'system': self.get_system_rating(sys_info['distribution']['name']),
             'cpu': self.get_cpu_rating(cpu_info.get('simple_model', cpu_info.get('model', '未知'))),
             'memory': self.get_memory_rating(memory_info.get('total_gb', 0))
         }

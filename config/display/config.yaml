@@ -100,9 +100,9 @@ memory_ratings:
   - min: 64
     rating: "【内存自由】"
   - min: 32
-    rating: "【大胃王】"
-  - min: 16
     rating: "【小康生活】"
+  - min: 16
+    rating: "【经典配置】"
   - min: 8
     rating: "【温饱水平】"
   - min: 0

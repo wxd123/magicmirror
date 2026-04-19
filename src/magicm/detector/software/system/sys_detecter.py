@@ -4,50 +4,156 @@ import sys
 import platform
 from .linux_detecter import detect as linux_detect
 from .win_detecter import detect as windows_detect
+from .mac_detecter import detect as mac_detect
 
 
 def detect():
-    """检测操作系统信息 - 增强版"""
-    info = {'platform': '未知', 'name': '未知', 'pretty_name': '未知系统'}
+    """检测操作系统信息 - 统一接口"""
     
     try:
         if sys.platform == 'win32':
             # Windows系统
-            info['platform'] = 'win32'
-            # 调用 Windows 检测器获取详细信息
             try:
-                windows_info = windows_detect()
-                info.update(windows_info)
+                return windows_detect()
             except Exception as e:
                 print(f"Windows系统检测出错: {e}")
-                info['name'] = f"Windows {platform.release()}"
-                info['pretty_name'] = info['name']
+                return _fallback_windows()
         
         elif sys.platform.startswith('linux'):
             # Linux系统
-            info['platform'] = 'linux'
-            # 调用 Linux 检测器获取详细信息
             try:
-                linux_info = linux_detect()
-                info.update(linux_info)
+                return linux_detect()
             except Exception as e:
                 print(f"Linux系统检测出错: {e}")
-                info['name'] = f"Linux {platform.release()}"
-                info['pretty_name'] = info['name']
+                return _fallback_linux()
         
         elif sys.platform == 'darwin':
             # macOS系统
-            info['platform'] = 'darwin'
-            info['name'] = f"macOS {platform.mac_ver()[0]}"
-            info['pretty_name'] = info['name']
+            try:
+                return mac_detect()
+            except Exception as e:
+                print(f"Mac系统检测出错: {e}")
+                return _fallback_macos()
         
         else:
-            info['platform'] = sys.platform
-            info['name'] = f"{sys.platform} {platform.release()}"
-            info['pretty_name'] = info['name']
+            return _fallback_unknown()
     
     except Exception as e:
         print(f"系统检测出错: {e}")
-        info = {'platform': '未知', 'name': '未知', 'pretty_name': '未知系统'}
+        return _fallback_error()
 
-    return info
+
+def _fallback_windows():
+    """Windows 降级返回"""
+    return {
+        "platform": "windows",
+        "platform_name": "Windows",
+        "distribution": {
+            "name": "Windows",
+            "version": "",
+            "pretty_name": f"Windows {platform.release()}"
+        },
+        "kernel": {
+            "name": "NT",
+            "version": "",
+            "build": "",
+            "pretty_version": platform.release()
+        },
+        "compatibility": {
+            "key": platform.release(),
+            "raw": platform.release()
+        }
+    }
+
+
+def _fallback_linux():
+    """Linux 降级返回"""
+    release_str = platform.release()
+    return {
+        "platform": "linux",
+        "platform_name": "Linux",
+        "distribution": {
+            "name": "Linux",
+            "version": "",
+            "pretty_name": f"Linux {release_str}"
+        },
+        "kernel": {
+            "name": "Linux",
+            "version": release_str.split('.')[0] if release_str else "",
+            "build": "",
+            "pretty_version": release_str
+        },
+        "compatibility": {
+            "key": release_str,
+            "raw": release_str
+        }
+    }
+
+
+def _fallback_macos():
+    """macOS 降级返回"""
+    return {
+        "platform": "darwin",
+        "platform_name": "macOS",
+        "distribution": {
+            "name": "macOS",
+            "version": "",
+            "pretty_name": f"macOS {platform.release()}"
+        },
+        "kernel": {
+            "name": "Darwin",
+            "version": platform.release(),
+            "build": "",
+            "pretty_version": platform.release()
+        },
+        "compatibility": {
+            "key": platform.release(),
+            "raw": platform.release()
+        }
+    }
+
+
+def _fallback_unknown():
+    """未知平台降级返回"""
+    return {
+        "platform": sys.platform,
+        "platform_name": "Unknown",
+        "distribution": {
+            "name": "Unknown",
+            "version": "",
+            "pretty_name": f"{sys.platform} {platform.release()}"
+        },
+        "kernel": {
+            "name": "Unknown",
+            "version": "",
+            "build": "",
+            "pretty_version": platform.release()
+        },
+        "compatibility": {
+            "key": platform.release(),
+            "raw": platform.release()
+        }
+    }
+
+
+def _fallback_error():
+    """错误降级返回"""
+    return {
+        "platform": "error",
+        "platform_name": "Error",
+        "distribution": {
+            "name": "未知",
+            "version": "",
+            "pretty_name": "未知系统"
+        },
+        "kernel": {
+            "name": "Unknown",
+            "version": "",
+            "build": "",
+            "pretty_version": ""
+        },
+        "compatibility": {
+            "key": "",
+            "raw": ""
+        }
+    }
