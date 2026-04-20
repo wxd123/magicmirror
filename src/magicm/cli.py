@@ -4,8 +4,7 @@
 magicm CLI 硬件检测工具
 """
 
-import sys
-import os
+import sys,os
 
 # 添加项目路径
 current_dir = os.path.dirname(os.path.abspath(__file__))
