@@ -138,22 +138,22 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "coverage", specifier = ">=7.13.5" },
-    { name = "docstring-parser-fork", specifier = ">=0.0.14" },
-    { name = "iniconfig", specifier = ">=2.3.0" },
-    { name = "markdown-it-py", specifier = ">=4.0.0" },
-    { name = "mdurl", specifier = ">=0.1.2" },
-    { name = "packaging", specifier = ">=26.1" },
-    { name = "platformdirs", specifier = ">=4.9.6" },
-    { name = "pluggy", specifier = ">=1.6.0" },
-    { name = "psutil", specifier = ">=7.2.2" },
-    { name = "pygments", specifier = ">=2.20.0" },
-    { name = "pyinitgen", specifier = ">=4.0.1" },
-    { name = "pytest", specifier = ">=9.0.3" },
-    { name = "pytest-cov", specifier = ">=7.1.0" },
-    { name = "python-docstring-markdown", specifier = ">=0.4.0" },
-    { name = "pyyaml", specifier = ">=6.0.3" },
-    { name = "rich", specifier = ">=15.0.0" },
+    { name = "coverage", specifier = "==7.13.5" },
+    { name = "docstring-parser-fork", specifier = "==0.0.14" },
+    { name = "iniconfig", specifier = "==2.3.0" },
+    { name = "markdown-it-py", specifier = "==4.0.0" },
+    { name = "mdurl", specifier = "==0.1.2" },
+    { name = "packaging", specifier = "==26.1" },
+    { name = "platformdirs", specifier = "==4.9.6" },
+    { name = "pluggy", specifier = "==1.6.0" },
+    { name = "psutil", specifier = "==7.2.2" },
+    { name = "pygments", specifier = "==2.20.0" },
+    { name = "pyinitgen", specifier = "==4.0.1" },
+    { name = "pytest", specifier = "==9.0.3" },
+    { name = "pytest-cov", specifier = "==7.1.0" },
+    { name = "python-docstring-markdown", specifier = "==0.4.0" },
+    { name = "pyyaml", specifier = "==6.0.3" },
+    { name = "rich", specifier = "==15.0.0" },
 ]
 
 [[package]]
